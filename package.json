@@ -6,6 +6,7 @@
   "scripts": {
     "db:createMigration": "node ./lib/createMigrations.js",
     "db:migrate": "node postgrator.js",
+    "db:seed": "for file in ./seeds/*.js; do node $file; done",
     "start": "npm server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
