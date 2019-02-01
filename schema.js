@@ -1,3 +1,5 @@
+const { query } = require('./db/index');
+
 const {
   GraphQLInt,
   GraphQLList,
@@ -17,11 +19,7 @@ const CustomerType = new GraphQLObjectType({
   })
 })
 
-const customers = [
-  {id: '1', name: 'Aziz Zamboni', email: 'aziz@example.com', age: 57},
-  {id: '2', name: 'Beatrice Yolanda', email: 'beatrice@example.com', age: 37},
-  {id: '3', name: 'Chanel Xerxes', email: 'chanel@example.com', age: 27},
-]
+const customers = (async () => (await query('SELECT * FROM "customers"')).rows)()
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -34,6 +32,12 @@ const RootQuery = new GraphQLObjectType({
       resolve(parentValue, args) {
         return customers.find((customer) => customer.id === args.id)﻿
       },
+    },
+    customers: {
+      type: new GraphQLList(CustomerType),
+      resolve(parentValue, args) {
+        return customers;
+      }
     }
   }
 })

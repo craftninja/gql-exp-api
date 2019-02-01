@@ -1,9 +1,11 @@
 {
-  "name": "exp-starter-api-gql",
+  "name": "exp-gql-api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
+    "db:createMigration": "node ./lib/createMigrations.js",
+    "db:migrate": "node postgrator.js",
     "start": "npm server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +14,11 @@
   "dependencies": {
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
-    "graphql": "^14.1.1"
+    "graphql": "^14.1.1",
+    "pg": "^7.8.0",
+    "postgrator": "^3.7.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0"
   }
 }
