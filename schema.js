@@ -27,14 +27,16 @@ const RootQuery = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString },
       },
-      resolve(parentValue, args) {
-        return customers.find(customer => customer.id === args.id);
+      async resolve(parentValue, args) {
+        return (await query('SELECT * FROM "customers" WHERE "id" = $1 LIMIT 1', [
+          args.id,
+        ])).rows[0];
       },
     },
     customers: {
       type: new GraphQLList(CustomerType),
-      resolve() {
-        return customers;
+      async resolve() {
+        return (await query('SELECT * FROM "customers"')).rows;
       },
     },
   },
