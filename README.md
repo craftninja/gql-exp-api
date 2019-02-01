@@ -1,3 +1,8 @@
+## todos:
+
+- [x] add eslint
+- [ ] add testing
+
 # README
 
 Five part series on building a graphql server with node and express
@@ -13,6 +18,7 @@ Five part series on building a graphql server with node and express
 * fork, clone, npm install
 * `$ createdb gql_exp_api_development`
 * `$ npm run db:migrate`
+* `$ npm run db:seed` to seed the database
 * consider `$ npm install -g nodemon` to restart server on change, and:
   * `$ nodemon start` (OR `$ npm start`)
 * open browser and navigate to [localhost:3000/graphql](http://localhost:3000/graphql)
@@ -29,3 +35,15 @@ Five part series on building a graphql server with node and express
     ```
 
 * click on `< Docs` and play with the documentation explorer
+
+## linting
+
+* `$ npm run lint`
+
+## create migration
+
+Sometimes creating a migration is a little fussy. I made a lil script to help you out!
+
+```sh
+node run db:createMigration NameOfMigration
+```

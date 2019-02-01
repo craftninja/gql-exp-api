@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+  require('dotenv').config(); // eslint-disable-line import/no-extraneous-dependencies, global-require
 }
 
 const { query } = require('../db/index');
@@ -45,9 +45,10 @@ clearDB().then(async () => {
     ],
   )).rows[0];
 
-
+  /* eslint-disable no-console */
   console.log(`Created customer ${beyonce.name}`);
   console.log(`Created customer ${rachel.name}`);
   console.log(`Created customer ${laverne.name}`);
+  /* eslint-enable no-console */
   await process.exit();
 });

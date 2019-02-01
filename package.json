@@ -7,6 +7,7 @@
     "db:createMigration": "node ./lib/createMigrations.js",
     "db:migrate": "node postgrator.js",
     "db:seed": "for file in ./seeds/*.js; do node $file; done",
+    "lint": "eslint --ignore-path .gitignore .",
     "start": "npm server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +21,9 @@
     "postgrator": "^3.7.0"
   },
   "devDependencies": {
-    "dotenv": "^6.2.0"
+    "dotenv": "^6.2.0",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   }
 }
