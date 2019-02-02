@@ -66,6 +66,21 @@ const mutation = new GraphQLObjectType({
         )).rows[0];
       },
     },
+    deleteCustomer: {
+      type: CustomerType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      async resolve(parentValue, args) {
+        return (await query(
+          `DELETE FROM "customers"
+          WHERE id = $1 returning *`,
+          [
+            args.id,
+          ],
+        )).rows[0];
+      },
+    },
   },
 });
 

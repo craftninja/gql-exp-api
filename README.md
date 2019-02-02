@@ -59,6 +59,19 @@ Five part series on building a graphql server with node and express
     }
     ```
 
+    ```
+    mutation{
+      deleteCustomer(
+        id: "1",
+      ){
+        id,
+        name,
+        email,
+        age
+      }
+    }
+    ```
+
 * click on `< Docs` and play with the documentation explorer
 
 ## linting
