@@ -44,6 +44,21 @@ Five part series on building a graphql server with node and express
     }
     ```
 
+    ```
+    mutation{
+      addCustomer(
+        name: "Winona Laduke",
+        email: "winona@example.com",
+        age: 59
+      ){
+        id,
+        name,
+        email,
+        age
+      }
+    }
+    ```
+
 * click on `< Docs` and play with the documentation explorer
 
 ## linting

@@ -1,6 +1,7 @@
 const {
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
@@ -16,8 +17,6 @@ const CustomerType = new GraphQLObjectType({
     age: { type: GraphQLInt },
   }),
 });
-
-const customers = (async () => (await query('SELECT * FROM "customers"')).rows)();
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -42,6 +41,35 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addCustomer: {
+      type: CustomerType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+      },
+      async resolve(parentValue, args) {
+        return (await query(
+          `INSERT INTO "customers"(
+            "name",
+            "email",
+            "age"
+          ) values ($1, $2, $3) returning *`,
+          [
+            args.name,
+            args.email,
+            args.age,
+          ],
+        )).rows[0];
+      },
+    },
+  },
+});
+
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation,
 });
