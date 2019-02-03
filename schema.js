@@ -81,6 +81,33 @@ const mutation = new GraphQLObjectType({
         )).rows[0];
       },
     },
+    updateCustomer: {
+      type: CustomerType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        age: { type: GraphQLInt },
+      },
+      async resolve(parentValue, args) {
+        const oldProps = (await query('SELECT * FROM "customers" WHERE "id" = $1 LIMIT 1', [
+          args.id,
+        ])).rows[0];
+        const properties = { ...oldProps, ...args };
+        return (await query(
+          `UPDATE "customers" SET
+          "name"=$1,
+          "email"=$2,
+          "age"=$3 WHERE id=$4 RETURNING *`,
+          [
+            properties.name,
+            properties.email,
+            properties.age,
+            properties.id,
+          ],
+        )).rows[0];
+      },
+    },
   },
 });
 

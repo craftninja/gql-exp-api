@@ -11,7 +11,7 @@ Five part series on building a graphql server with node and express
 - [x] https://youtu.be/qqzIA1BQ_ys
 - [x] https://youtu.be/e9Zxzr7sy60
 - [x] https://youtu.be/BqfZZ0wDeMU
-- [ ] https://youtu.be/ay81Q5JhkEw
+- [x] https://youtu.be/ay81Q5JhkEw
 
 ## setup
 
@@ -63,6 +63,20 @@ Five part series on building a graphql server with node and express
     mutation{
       deleteCustomer(
         id: "1",
+      ){
+        id,
+        name,
+        email,
+        age
+      }
+    }
+    ```
+
+    ```
+    mutation{
+      updateCustomer(
+        id: "11",
+        email: "wladuke@example.com"
       ){
         id,
         name,
